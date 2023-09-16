@@ -89,7 +89,7 @@ namespace DotnetCoding.Controllers
         {            
             
             await _productService.DeleteProduct(guid);
-            return Ok("Product Delete");
+            return Ok("Product Deleted!");
         }
 
         [HttpGet]
@@ -106,7 +106,7 @@ namespace DotnetCoding.Controllers
         {
              await _productService.ProcessQueqe(process);
 
-            return Ok();
+            return Ok("Request Processed!");
         }
 
         [HttpPost]
