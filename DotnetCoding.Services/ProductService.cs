@@ -69,7 +69,7 @@ namespace DotnetCoding.Services
 
         public async Task ProcessQueqe(Process process)
         {
-            var queqe = await _unitOfWork.ProductQueqe.GetByGuid(process.Guid);
+            var queqe = await _unitOfWork.ProductQueqe.GetByGuid<ProductQueue>(process.Guid);
             if (queqe != null)
             {
                 _unitOfWork.Detach(queqe);
@@ -83,7 +83,8 @@ namespace DotnetCoding.Services
 
                 if (queqe.UpdateTypeId == (int)UpdateTypeEnum.Delete)
                 {
-                    await _unitOfWork.Products.Delete(queqe.ProductId);
+                    var product=await _unitOfWork.Products.GetById(queqe.ProductId);
+                    await _unitOfWork.Products.Delete(product);
                     _unitOfWork.Save();
                     queqe.StatusId = (int)StatusEnum.Approved;
                     await _unitOfWork.ProductQueqe.Update(queqe);
@@ -120,7 +121,7 @@ namespace DotnetCoding.Services
             }
             await _unitOfWork.Products.Create(productDetails);           
             _unitOfWork.Save();
-            var product = await _unitOfWork.Products.GetByGuid(productDetails.GUID.ToString());
+            var product = await _unitOfWork.Products.GetByGuid<ProductDetails>(productDetails.GUID);
             if (product != null && !productDetails.IsActive)
             {
                 var productQueue = new ProductQueue()
@@ -138,9 +139,9 @@ namespace DotnetCoding.Services
                 _unitOfWork.Save();
             }
         }
-        public async Task DeleteProduct(string productId)
+        public async Task DeleteProduct(Guid productId)
         {
-            var product = await _unitOfWork.Products.GetByGuid(productId);
+            var product = await _unitOfWork.Products.GetByGuid<ProductDetails>(productId);
             if (product != null)
             {
                 var productQueue = new ProductQueue()
@@ -159,7 +160,7 @@ namespace DotnetCoding.Services
 
         public async Task UpdateProduct(ProductDetails productDetails)
         {
-            var product = await _unitOfWork.Products.GetByGuid(productDetails.GUID.ToString());
+            var product = await _unitOfWork.Products.GetByGuid<ProductDetails>(productDetails.GUID);
             if (product != null)
             {
                 _unitOfWork.Detach(product);
@@ -192,5 +193,7 @@ namespace DotnetCoding.Services
             }
 
         }
+
+       
     }
 }

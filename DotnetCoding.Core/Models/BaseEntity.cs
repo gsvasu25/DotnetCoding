@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DotnetCoding.Core.Models
 {
-    public class BaseEntity
+    public class BaseEntity:IGuid
     {
         [Required]
         public DateTime CreatedTimeUtc { get; set; } = DateTime.UtcNow;

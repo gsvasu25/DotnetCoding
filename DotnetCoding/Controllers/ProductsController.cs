@@ -85,7 +85,7 @@ namespace DotnetCoding.Controllers
             return Ok("Product Updated");
         }
         [HttpDelete]
-        public async Task<IActionResult> Delete(string guid)
+        public async Task<IActionResult> Delete(Guid guid)
         {            
             
             await _productService.DeleteProduct(guid);

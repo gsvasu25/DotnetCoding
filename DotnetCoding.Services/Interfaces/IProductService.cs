@@ -14,7 +14,7 @@ namespace DotnetCoding.Services.Interfaces
         Task<IEnumerable<ProductDetails>> GetAllProducts(Filter filter);
         Task CreateProduct(ProductDetails productDetails);
         Task UpdateProduct(ProductDetails productDetails);
-        Task DeleteProduct(string guid);
+        Task DeleteProduct(Guid guid);
         Task ProcessQueqe(Process process);
         Task<IEnumerable<ProductQueueDto>> GetPendingProducts();
     }

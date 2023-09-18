@@ -3,6 +3,6 @@
     public class Process
     {
         public bool Approved { get; set; }
-        public string Guid {  get; set; }
+        public Guid Guid {  get; set; }
     }
 }
